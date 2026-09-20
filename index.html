@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malyzha Putri | Portfolio</title>
+<style>
+  :root{
+    --bg: #0b0a10;
+    --bg-soft: #121019;
+    --panel: #16141f;
+    --panel-border: #26222f;
+    --text: #f5f4f7;
+    --text-dim: #9a94a8;
+    --accent: #8b5cf6;
+    --accent-soft: #a855f7;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Arial, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,10,16,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--panel-border);
+  }
+  nav{
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 32px;
+  }
+  .logo{ font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+  .logo span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:36px; font-size:15px; }
+  .nav-links a{ color:var(--text-dim); transition:color .2s; position:relative; }
+  .nav-links a:hover, .nav-links a.active{ color:var(--text); }
+  .nav-links a.active::after{
+    content:''; position:absolute; left:0; right:0; bottom:-8px;
+    height:2px; background:var(--accent);
+  }
+  .menu-btn{ display:none; background:none; border:none; color:var(--text); font-size:24px; cursor:pointer; }
+
+  section{ max-width:1200px; margin:0 auto; padding:120px 32px; }
+
+  /* HERO */
+  .hero{
+    display:grid; grid-template-columns: 1.2fr 0.8fr; gap:60px; align-items:center;
+    padding-top:100px;
+  }
+  .eyebrow{ color:var(--accent); font-family:var(--mono); font-size:13px; letter-spacing:0.15em; margin-bottom:18px; }
+  .hero h1{
+    font-size:64px; line-height:1.05; font-weight:800; letter-spacing:-0.03em;
+    margin-bottom:8px;
+  }
+  .hero h1 .accent{ color:var(--accent); }
+  .role{ font-size:22px; font-weight:600; margin:22px 0 18px; color:var(--text); }
+  .role .x{ color:var(--accent); margin:0 6px; }
+  .hero p.desc{ color:var(--text-dim); font-size:16px; max-width:520px; margin-bottom:34px; }
+  .btn-row{ display:flex; gap:14px; margin-bottom:40px; }
+  .btn{
+    padding:14px 26px; border-radius:8px; font-size:15px; font-weight:600;
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:1px solid transparent;
+    transition: transform .15s ease, background .2s;
+  }
+  .btn-primary{ background:var(--accent); color:#fff; }
+  .btn-primary:hover{ background:var(--accent-soft); transform:translateY(-2px); }
+  .btn-outline{ border-color:var(--panel-border); color:var(--text); }
+  .btn-outline:hover{ border-color:var(--accent); color:var(--accent); }
+  .social-row{ display:flex; gap:18px; font-size:14px; color:var(--text-dim); align-items:center; }
+  .social-row a:hover{ color:var(--accent); }
+  .dot{ width:4px; height:4px; border-radius:50%; background:var(--text-dim); }
+
+  .hero-right{ position:relative; }
+  .code-card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:12px;
+    padding:22px 24px; font-family:var(--mono); font-size:13.5px; color:#d8d4e0;
+    position:relative; margin-top:60px;
+  }
+  .tag{
+    position:absolute; top:-14px; left:20px; background:var(--bg-soft);
+    border:1px solid var(--panel-border); border-radius:6px; padding:6px 12px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--accent);
+  }
+  .code-card .k{ color:#c4bfe0; }
+  .code-card .s{ color:var(--accent-soft); }
+  .avatar{
+    width:180px; height:180px; border-radius:50%; overflow:hidden; border:2px solid var(--accent);
+    position:absolute; top:-90px; right:10px; box-shadow:0 0 40px rgba(139,92,246,0.35);
+    background:#2a2733;
+  }
+  .avatar img{ width:100%; height:100%; object-fit:cover; }
+  .avatar-tag{
+    position:absolute; bottom:-14px; left:50%; transform:translateX(-50%);
+    background:var(--bg-soft); border:1px solid var(--panel-border); border-radius:6px;
+    padding:5px 10px; font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .sec-tag{
+    position:absolute; bottom:-16px; right:0; background:var(--bg-soft);
+    border:1px solid var(--panel-border); border-radius:6px; padding:6px 12px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--accent);
+  }
+
+  /* SECTION HEADERS */
+  .sec-eyebrow{ color:var(--accent); font-family:var(--mono); font-size:13px; letter-spacing:0.1em; margin-bottom:16px; }
+  .sec-title{ font-size:46px; font-weight:800; letter-spacing:-0.02em; margin-bottom:56px; }
+  .sec-title .accent{ color:var(--accent); }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
+  .about-grid p{ color:var(--text-dim); font-size:16px; margin-bottom:20px; max-width:540px; }
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--panel-border); }
+  .stat{ padding:28px 24px; border-bottom:1px solid var(--panel-border); }
+  .stat:nth-child(odd){ border-right:1px solid var(--panel-border); }
+  .stat .num{ font-size:34px; font-weight:800; color:var(--text); margin-bottom:6px; }
+  .stat .label{ color:var(--text-dim); font-size:14px; }
+
+  /* SKILLS */
+  .skill-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); }
+  .skill-card{ background:var(--bg); padding:34px 30px; transition:background .2s; }
+  .skill-card:hover{ background:var(--panel); }
+  .skill-icon{ color:var(--accent); font-size:20px; margin-bottom:22px; font-family:var(--mono); }
+  .skill-card h3{ font-size:19px; margin-bottom:10px; }
+  .skill-card p{ color:var(--text-dim); font-size:14px; }
+
+  /* PROJECTS */
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .project-card{
+    border:1px solid var(--panel-border); border-radius:14px; overflow:hidden;
+    display:flex; flex-direction:column; cursor:pointer; transition:border-color .2s, transform .2s;
+  }
+  .project-card:hover{ border-color:var(--accent); transform:translateY(-3px); }
+
+  /* PROJECT MODAL */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; z-index:100;
+    background:rgba(6,5,10,0.75); backdrop-filter:blur(4px);
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    position:relative; max-width:560px; width:100%;
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:16px;
+    padding:40px 44px;
+  }
+  .modal-close{
+    position:absolute; top:20px; right:20px; background:none; border:none;
+    color:var(--text-dim); font-size:18px; cursor:pointer; width:36px; height:36px;
+    border-radius:50%; transition:background .2s;
+  }
+  .modal-close:hover{ background:var(--bg-soft); color:var(--text); }
+  .modal-eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:0.12em; color:var(--text-dim); margin-bottom:14px; }
+  .modal-box h3{ font-size:30px; font-weight:800; color:var(--accent-soft); margin-bottom:20px; }
+  .modal-box p{ color:var(--text); font-size:15px; line-height:1.7; margin-bottom:26px; }
+  .modal-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .modal-tags span{
+    border:1px solid var(--panel-border); border-radius:8px; padding:8px 16px;
+    font-size:13px; color:var(--text-dim); font-weight:600;
+  }
+  .project-visual{
+    height:220px; display:flex; align-items:center; justify-content:center;
+    font-size:26px; font-weight:700; letter-spacing:0.08em; color:rgba(255,255,255,0.85);
+  }
+  .visual-1{ background:radial-gradient(circle at 50% 50%, rgba(139,92,246,0.45), rgba(20,16,30,0.2)); }
+  .visual-2{ background:radial-gradient(circle at 50% 50%, rgba(56,150,220,0.4), rgba(16,20,30,0.2)); }
+  .visual-3{ background:radial-gradient(circle at 50% 50%, rgba(230,120,90,0.4), rgba(30,18,16,0.2)); }
+  .project-body{ padding:24px 26px; }
+  .project-tag{ color:var(--accent); font-family:var(--mono); font-size:12px; letter-spacing:0.08em; margin-bottom:10px; }
+  .project-body h3{ font-size:20px; margin-bottom:8px; }
+  .project-body p{ color:var(--text-dim); font-size:14px; }
+
+  /* CV */
+  .cv-wrap{ display:grid; grid-template-columns:1fr 260px; gap:60px; }
+  .timeline{ position:relative; padding-left:28px; border-left:1px solid var(--panel-border); }
+  .cv-block{ margin-bottom:38px; position:relative; }
+  .cv-block::before{
+    content:''; position:absolute; left:-34px; top:4px; width:9px; height:9px;
+    border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(139,92,246,0.15);
+  }
+  .cv-period{ font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:0.05em; margin-bottom:6px; }
+  .cv-block h3{ font-size:18px; margin-bottom:4px; }
+  .cv-org{ color:var(--text-dim); font-size:14px; margin-bottom:8px; }
+  .cv-block p{ color:var(--text-dim); font-size:14px; max-width:520px; }
+  .cv-side{ border-left:1px solid var(--panel-border); padding-left:40px; }
+  .cv-side h4{ font-size:15px; margin-bottom:16px; color:var(--text); }
+  .cv-side p{ color:var(--text-dim); font-size:14px; margin-bottom:26px; }
+  .download-card{
+    border:1px solid var(--panel-border); border-radius:12px; padding:24px;
+    background:var(--panel);
+  }
+  .download-card .btn{ width:100%; justify-content:center; margin-top:14px; }
+
+  /* CERTIFICATES */
+  .cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .cert-card{
+    border:1px solid var(--panel-border); border-radius:14px; overflow:hidden;
+    background:var(--panel);
+  }
+  .cert-thumb{
+    height:180px; overflow:hidden;
+    background: var(--bg-soft);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .cert-thumb img{ width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform .3s; }
+  .cert-card:hover .cert-thumb img{ transform:scale(1.05); }
+  .cert-body{ padding:20px 22px; }
+  .cert-body .cert-issuer{ font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:0.06em; margin-bottom:8px; }
+  .cert-body h3{ font-size:16px; margin-bottom:6px; }
+  .cert-body p{ color:var(--text-dim); font-size:13px; }
+
+  /* CONTACT */
+  .contact-sec{ text-align:center; }
+  .contact-sec .sec-eyebrow{ display:flex; justify-content:center; }
+  .contact-sec h2{ font-size:48px; font-weight:800; letter-spacing:-0.02em; margin-bottom:16px; }
+  .contact-sec .sub{ color:var(--text-dim); font-size:16px; margin-bottom:34px; }
+  .contact-sec .btn{ margin:0 auto 26px; width:max-content; }
+  .contact-links{ display:flex; justify-content:center; gap:26px; color:var(--text-dim); font-size:14px; }
+  .contact-links a:hover{ color:var(--accent); }
+
+  footer{ border-top:1px solid var(--panel-border); padding:28px 32px; text-align:center; color:var(--text-dim); font-size:13px; }
+
+  @media (max-width: 900px){
+    .hero{ grid-template-columns:1fr; padding-top:60px; }
+    .hero-right{ order:-1; margin-bottom:60px; }
+    .avatar{ position:static; margin:0 auto 20px; }
+    .hero h1{ font-size:42px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skill-grid{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .cv-wrap{ grid-template-columns:1fr; }
+    .cv-side{ border-left:none; padding-left:0; border-top:1px solid var(--panel-border); padding-top:30px; }
+    .cert-grid{ grid-template-columns:1fr; }
+    .nav-links{ display:none; }
+    section{ padding:80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">MTech<span>.</span></div>
+    <div class="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#cv">CV</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="hero">
+  <div>
+    <div class="eyebrow">HELLO, I'M</div>
+    <h1>Malyzha<br><span class="accent">Putri.</span></h1>
+    <div class="role">IT Support <span class="x">×</span> Network Support</div>
+    <p class="desc">Lulusan baru dengan pemahaman dasar troubleshooting perangkat keras &amp; lunak, serta pengalaman praktis konfigurasi jaringan. Siap terlibat dalam proyek pengembangan jaringan dan terus belajar di dunia teknologi informasi.</p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary">View Projects ↗</a>
+      <a href="#contact" class="btn btn-outline">Let's Connect</a>
+    </div>
+    <div class="social-row">
+      <a href="https://www.instagram.com/malizaputrim.p?stkn=dXFteXJyMDZuemht">Instagram</a>
+      <a href="https://www.linkedin.com/in/malyzha-putri-m-p-030207280?utm_source=share_via&utm_content=profile&utm_medium=member_android">LinkedIn</a>
+      <a href="https://github.com/malyzhaputrimp/malyzha-putrimp.github.io.git">Github</a>
+      <span class="dot"></span>
+      <span>Jakarta, Indonesia</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="avatar">
+      <img src="profile.jpg" alt="Malyzha Putri" onerror="this.style.display='none'">
+      <div class="avatar-tag">MALYZHA / PROFILE</div>
+    </div>
+    <div class="code-card">
+      <div class="tag">↗ NETWORK</div>
+      const <span class="k">developer</span> = {<br>
+      &nbsp;&nbsp;name: <span class="s">"Malyzha Putri"</span>,<br>
+      &nbsp;&nbsp;focus: <span class="s">"Cybersecurity"</span>,<br>
+      &nbsp;&nbsp;skills: [<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Networking"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Web Development"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"Problem Solving"</span><br>
+      &nbsp;&nbsp;],<br>
+      &nbsp;&nbsp;status: <span class="s">"building..."</span><br>
+      };
+      <div class="sec-tag">◆ SECURITY</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="sec-eyebrow">01 — ABOUT ME</div>
+      <div class="sec-title">Curious mind.<br><span class="accent">Secure systems.</span></div>
+      <p>As a student passionate about technology, I continuously explore networking, cybersecurity, and web development through projects, experimentation, and hands-on learning.</p>
+      <p>My goal is to understand how digital systems communicate and how technology can be designed to be secure, resilient, and reliable.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">01</div><div class="label">Networking</div></div>
+      <div class="stat"><div class="num">02</div><div class="label">Cybersecurity</div></div>
+      <div class="stat"><div class="num">03</div><div class="label">Web Development</div></div>
+      <div class="stat"><div class="num">04</div><div class="label">Continuous Learning</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-eyebrow">02 — SKILLS</div>
+  <div class="sec-title">Tools I <span class="accent">work with.</span></div>
+  <div class="skill-grid">
+    <div class="skill-card">
+      <div class="skill-icon">&lt;/&gt;</div>
+      <h3>HTML / CSS</h3>
+      <p>Responsive layouts, modern UI and clean website structure.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">JS</div>
+      <h3>JavaScript</h3>
+      <p>Interactive components, DOM manipulation and web logic.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">Py</div>
+      <h3>Python</h3>
+      <p>Automation, backend fundamentals and problem solving.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <h3>Networking</h3>
+      <p>Network architecture, protocols and troubleshooting fundamentals.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◉</div>
+      <h3>Cybersecurity</h3>
+      <p>Security fundamentals and secure-system thinking.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⌥</div>
+      <h3>Git / GitHub</h3>
+      <p>Version control and organized project collaboration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-eyebrow">03 — PROJECTS</div>
+  <div class="sec-title">Selected <span class="accent">work.</span></div>
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-visual visual-1">PORTFOLIO</div>
+      <div class="project-body">
+        <div class="project-tag">01 / WEB</div>
+        <h3>Personal Portfolio</h3>
+        <p>A modern portfolio website focused on technology and cybersecurity.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-visual visual-2">NETWORK</div>
+      <div class="project-body">
+        <div class="project-tag">02 / NETWORKING</div>
+        <h3>Network Lab</h3>
+        <p>Network topology and connectivity experiments.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-visual visual-3">PYTHON</div>
+      <div class="project-body">
+        <div class="project-tag">03 / PYTHON</div>
+        <h3>Automation Tool</h3>
+        <p>A Python project for automating repetitive tasks.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('lan')">
+      <div class="project-visual visual-1">LAN</div>
+      <div class="project-body">
+        <div class="project-tag">NETWORKING</div>
+        <h3>LAN Network Simulation</h3>
+        <p>Simulasi jaringan LAN menggunakan Cisco Packet Tracer.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('absensi')">
+      <div class="project-visual visual-2">ABSENSI</div>
+      <div class="project-body">
+        <div class="project-tag">WEB DEVELOPMENT</div>
+        <h3>Website Absensi</h3>
+        <p>Website absensi sederhana dengan PHP &amp; MySQL.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('smarthome')">
+      <div class="project-visual visual-3">SMART HOME</div>
+      <div class="project-body">
+        <div class="project-tag">IOT</div>
+        <h3>Smart Home</h3>
+        <p>Sistem Smart Home sederhana berbasis Internet of Things.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('fulladder')">
+      <div class="project-visual visual-1">LOGIC</div>
+      <div class="project-body">
+        <div class="project-tag">DIGITAL LOGIC</div>
+        <h3>Full Adder</h3>
+        <p>Rangkaian digital Full Adder dengan gerbang logika XOR, AND, OR.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('tokoonline')">
+      <div class="project-visual visual-2">TOKO ONLINE</div>
+      <div class="project-body">
+        <div class="project-tag">TOKO ONLINE</div>
+        <h3>Website Toko Online</h3>
+        <p>Website toko online untuk menampilkan produk dan proses pembelian dasar.</p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openProject('curahhujan')">
+      <div class="project-visual visual-3">DATA</div>
+      <div class="project-body">
+        <div class="project-tag">DATA HUJAN</div>
+        <h3>Analisis Data Curah Hujan</h3>
+        <p>Analisis pola dan perubahan curah hujan menggunakan Python.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT MODAL -->
+<div id="projectModal" class="modal-overlay" onclick="if(event.target===this) closeProject()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProject()">✕</button>
+    <div class="modal-eyebrow" id="modalEyebrow"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <div class="modal-tags" id="modalTags"></div>
+  </div>
+</div>
+
+<!-- CV -->
+<section id="cv">
+  <div class="sec-eyebrow">04 — CV</div>
+  <div class="sec-title">My <span class="accent">journey.</span></div>
+  <div class="cv-wrap">
+    <div>
+      <div class="timeline">
+        <div class="cv-block">
+          <div class="cv-period">SEP 2023 — NOV 2023</div>
+          <h3>Teknik Komputer &amp; Jaringan</h3>
+          <div class="cv-org">Pusat Pelatihan Kerja Daerah (PPKD) Jakarta</div>
+          <p>Merakit &amp; mengidentifikasi peralatan komputer, troubleshooting PC (hardware &amp; software), instalasi jaringan LAN, konfigurasi Mikrotik (routing, hotspot, wifi), serta membangun topologi jaringan di Cisco Packet Tracer. Juga mengoperasikan Linux Debian, Samba, Web Server, MySQL, PHP, Windows Server 2012, dan CACTI.</p>
+        </div>
+        <div class="cv-block">
+          <div class="cv-period">2020 — 2023</div>
+          <h3>SMA Islam As-Syafi'iyah 01 Jakarta</h3>
+          <div class="cv-org">Jurusan MIPA</div>
+          <p>Menyelesaikan pendidikan menengah atas dan aktif berpartisipasi dalam organisasi OSIS di sekolah.</p>
+        </div>
+        <div class="cv-block">
+          <div class="cv-period">ORGANISASI</div>
+          <h3>OSIS &amp; Karang Taruna</h3>
+          <div class="cv-org">Sekolah &amp; Lingkungan</div>
+          <p>Mengikuti organisasi OSIS di sekolah dan organisasi karang taruna di lingkungan masyarakat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cv-side">
+      <h4>Kemampuan</h4>
+      <p>Instalasi Operasi Sistem<br>Troubleshoot<br>Merakit Komputer<br>Membuat Topologi Jaringan<br>Konfigurasi Mikrotik &amp; Cisco<br>Monitoring Jaringan<br>Komunikasi &amp; Percaya diri</p>
+      <h4>Bahasa</h4>
+      <p>Indonesia (Native)<br>Inggris</p>
+      <div class="download-card">
+        <h4>Full Resume</h4>
+        <p style="margin-bottom:0;">CV lengkap Malyzha Putri — IT Support | Network Support.</p>
+        <a href="cv-malyzha-putri.pdf" class="btn btn-primary" download>Download CV ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="sec-eyebrow">05 — CERTIFICATES</div>
+  <div class="sec-title">Credentials &amp; <span class="accent">training.</span></div>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <a href="certificates/pdf/mtcna.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/mtcna.jpg" alt="MTCNA Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">MIKROTIK</div>
+        <h3>Mikrotik Certified Network Associate (MTCNA)</h3>
+        <p>Nov 2023 · Berlaku 3 tahun</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/bnsp-computer-technical-support.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/bnsp-computer-technical-support.jpg" alt="BNSP Computer Technical Support Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">BNSP · LSP-TK JAKARTA</div>
+        <h3>Sertifikat Kompetensi — Computer Technical Support</h3>
+        <p>Pemeliharaan &amp; Perbaikan Komputer · Des 2023</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/penetration-testing.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/penetration-testing.jpg" alt="Penetration Testing Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">ID-NETWORKERS</div>
+        <h3>Cyber Security Penetration Testing</h3>
+        <p>Beasiswa Bootcamp Online · 1 bulan</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/jaringan-komputer-dasar.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/jaringan-komputer-dasar.jpg" alt="Jaringan Komputer Dasar Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">ID-NETWORKERS</div>
+        <h3>Jaringan Komputer Dasar</h3>
+        <p>Kursus online · Certificate of Completion</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/mikrotik-dasar.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/mikrotik-dasar.jpg" alt="Mikrotik Dasar Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">ID-NETWORKERS</div>
+        <h3>Mikrotik Dasar</h3>
+        <p>Kursus online · Berlaku s.d. 06-11-2026</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/cisco-dasar.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/cisco-dasar.jpg" alt="Cisco Dasar Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">ID-NETWORKERS</div>
+        <h3>Cisco Dasar</h3>
+        <p>Kursus online · Berlaku s.d. 07-11-2026</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/linux-dasar.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/linux-dasar.jpg" alt="Linux Dasar Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">ID-NETWORKERS</div>
+        <h3>Linux Dasar</h3>
+        <p>Kursus online · Berlaku s.d. 06-11-2026</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/python-dasar.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/python-dasar.jpg" alt="Python Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">DICODING</div>
+        <h3>Memulai Pemrograman dengan Python</h3>
+        <p>Jan 2026 · Berlaku hingga Jan 2029</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/belajar-dasar-ai.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/belajar-dasar-ai.jpg" alt="Belajar Dasar AI Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">DICODING</div>
+        <h3>Belajar Dasar AI</h3>
+        <p>Mar 2025 · Berlaku hingga Mar 2028</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/financial-literacy.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/financial-literacy.jpg" alt="Financial Literacy Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">DICODING</div>
+        <h3>Introduction to Financial Literacy</h3>
+        <p>Jan 2026 · Berlaku hingga Jan 2029</p>
+      </div>
+    </div>
+    <div class="cert-card">
+      <a href="certificates/pdf/google-digital-garage.pdf" target="_blank">
+        <div class="cert-thumb"><img src="certificates/google-digital-garage.jpg" alt="Google Digital Garage Certificate"></div>
+      </a>
+      <div class="cert-body">
+        <div class="cert-issuer">GOOGLE DIGITAL GARAGE</div>
+        <h3>The Fundamentals of Digital Marketing</h3>
+        <p>Jul 2021</p>
+      </div>
+    </div>
+  </div>
+  <p style="color:var(--text-dim); font-size:13px; margin-top:26px;">Klik gambar sertifikat untuk membuka file PDF aslinya.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-sec">
+  <div class="sec-eyebrow">06 — CONTACT</div>
+  <h2>Let's build something<br>meaningful.</h2>
+  <p class="sub">Have a project, collaboration, or just want to say hello?</p>
+  <a href="mailto:youremail@example.com" class="btn btn-primary">Send an Email ↗</a>
+  <div class="contact-links">
+    <a href="#">Instagram ↗</a>
+    <a href="#">LinkedIn ↗</a>
+  </div>
+</section>
+
+<footer>&copy; 2026 Malyzha Putri. Built with curiosity and code.</footer>
+
+<script>
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (window.scrollY >= top) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+  // Project modal data & logic
+  const projectData = {
+    lan: {
+      eyebrow: 'NETWORKING',
+      title: 'LAN Network Simulation',
+      desc: 'Project simulasi jaringan LAN menggunakan Cisco Packet Tracer. Project ini digunakan untuk memahami konsep jaringan, hubungan antar perangkat, serta komunikasi antar komputer dalam sebuah jaringan.',
+      tags: ['Cisco Packet Tracer', 'Networking', 'LAN']
+    },
+    absensi: {
+      eyebrow: 'WEB DEVELOPMENT',
+      title: 'Website Absensi',
+      desc: 'Website absensi sederhana yang dibuat untuk mempelajari pengembangan website dan pengelolaan data. Sistem menggunakan PHP dan MySQL sebagai bagian dari proses pengolahan data.',
+      tags: ['HTML', 'CSS', 'PHP', 'MySQL']
+    },
+    smarthome: {
+      eyebrow: 'IOT',
+      title: 'Smart Home',
+      desc: 'Konsep sistem Smart Home sederhana yang berfokus pada otomatisasi perangkat rumah. Salah satu penerapannya adalah pengontrolan lampu menggunakan konsep Internet of Things.',
+      tags: ['IoT', 'Smart Home', 'Automation']
+    },
+    fulladder: {
+      eyebrow: 'DIGITAL LOGIC',
+      title: 'Full Adder',
+      desc: 'Project rangkaian digital Full Adder untuk memahami proses penjumlahan bilangan biner menggunakan beberapa gerbang logika seperti XOR, AND, dan OR.',
+      tags: ['XOR', 'AND', 'OR', 'Digital Logic']
+    },
+    tokoonline: {
+      eyebrow: 'TOKO ONLINE',
+      title: 'Website Toko Online',
+      desc: 'Website toko online yang dibuat untuk menampilkan produk, informasi produk, serta fitur dasar dalam proses pembelian.',
+      tags: ['HTML', 'CSS', 'JavaScript']
+    },
+    curahhujan: {
+      eyebrow: 'DATA HUJAN',
+      title: 'Analisis Data Curah Hujan',
+      desc: 'Analisis data curah hujan untuk melihat pola dan perubahan curah hujan berdasarkan data yang tersedia.',
+      tags: ['Data Analysis', 'Python', 'Data']
+    }
+  };
+
+  function openProject(key){
+    const p = projectData[key];
+    if(!p) return;
+    document.getElementById('modalEyebrow').textContent = p.eyebrow;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalDesc').textContent = p.desc;
+    document.getElementById('modalTags').innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
+    document.getElementById('projectModal').classList.add('open');
+  }
+  function closeProject(){
+    document.getElementById('projectModal').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeProject(); });
+</script>
+
+</body>
+</html>
